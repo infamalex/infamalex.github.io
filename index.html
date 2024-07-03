@@ -7,10 +7,25 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div class="container">
-        <!-- <div class="sparkling-heart"> -->
-            <img src="jigglypuff.png" alt="Jigglypuff" class="jigglypuff">
-        <!-- </div> -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const heartContainer = document.querySelector('.jigglypuff');
+
+            heartContainer.addEventListener('click', function() {
+                this.classList.remove('tapped');
+                // Trigger reflow to ensure the removal has been processed
+                void this.offsetWidth;
+                this.classList.add('tapped');
+            });
+        });
+    </script>
+    <div class="heart-container">
+        <div class="heart"></div>
+        <div class="star-container">
+            <div class="star" style="top: 13%; left: 10%;"></div>
+            <div class="star" style="top: 60%; left: 65%; animation-delay: 0.5s;"></div>
+        </div>
+        <img src="jigglypuff.png" alt="Jigglypuff" class="jigglypuff">
     </div>
 </body>
 </html>

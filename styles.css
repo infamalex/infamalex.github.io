@@ -1,40 +1,101 @@
 body, html {
+    --size: min(100vw, 100vh);
     height: 100%;
     margin: 0;
     font-family: Arial, sans-serif;
     overflow: hidden; /* Prevent scrollbars */
 }
 
-.container {
-    position: relative;
+.heart-container {
     height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
-    background-image: url('sparkling-heart.png');
     background-size: contain;
     background-position: center;
     background-repeat: no-repeat;
-    overflow: hidden; /* Prevent scrollbars */
-    animation: sparkle 5s linear infinite;
-}
-
-.sparkling-heart {
-    /* position: absolute; */
-    width: 100%;
-    height: 100%;
-    background-image: url('sparkling-heart.png');
-    background-size: cover;
-    background-position: center;
-    animation: sparkle 5s linear infinite;
 }
 
 .jigglypuff {
-    position: relative;
-    max-width: 30%;
+    position: absolute;
+    width: calc(var(--size) * 0.5);
     height: auto;
+    padding-bottom: calc(var(--size) * 0.15);
     z-index: 1; /* Ensure Jigglypuff is above the background */
     animation: float 3s infinite ease-in-out;
+}
+
+.heart {
+    --heart-size:calc(var(--size)/1.7);
+    background-color: #ff1b68;
+    display: inline-block;
+    font-size:calc(var(--size) / 3.2);
+    height: var(--heart-size);
+    margin: 0 10px;
+    position: relative;
+    top: 3%;
+    transform: rotate(-45deg);
+    width: var(--heart-size);
+    animation: beat 2s infinite ease-in-out;
+  }
+
+  .heart:before,
+  .heart:after {
+    content: "";
+    background-color: #ff1b68;
+    border-radius: 50%;
+    height: var(--heart-size);;
+    position: absolute;
+    width: var(--heart-size);;
+  }
+
+  .heart:before {
+    top: calc(var(--heart-size)/-2);
+    left: 0;
+  }
+
+  .heart:after {
+    left: calc(var(--heart-size)/2);
+    top: 0;
+}
+
+.star-container {
+    position: absolute;
+    height: var(--size);
+    width: var(--size);
+    animation: beat 2s infinite ease-in-out;
+}
+.star{
+    position:relative;
+    width:var(--size);
+    font-size:calc(var(--size) / 7);
+    animation-name: sparkle, wobble;
+    animation-duration: .7s, 2s;
+    animation-timing-function: cubic-bezier(0.19, 1, 0.22, 1), ease;
+    animation-iteration-count: infinite, infinite;
+    transform-origin: .5em .5em;
+  }
+
+  .star:before{
+    position:absolute;
+    height:1.15em;
+    width:1em;
+    content:"";
+    background:#EDC951;
+    transform:rotate(-45deg) skewX(22.5deg) skewY(22.5deg);
+  }
+
+  .star:after{
+    position:absolute;
+    height:1.15em;
+    width:1em;
+    content:"";
+    background:#EDC951;
+    transform:rotate(45deg) skewX(22.5deg) skewY(22.5deg);
+  }
+
+  .tapped {
+    animation: pulse .2s ease-in-out;
 }
 
 @keyframes float {
@@ -42,21 +103,66 @@ body, html {
         transform: translateY(0);
     }
     50% {
-        transform: translateY(-20px);
+        transform: translateY(-5%);
     }
     100% {
         transform: translateY(0);
     }
 }
 
-@keyframes sparkle {
+@keyframes beat {
     0% {
-        opacity: 1;
+        scale: 1;
     }
     50% {
-        opacity: 0.8;
+        scale: .98;
     }
     100% {
-        opacity: 1;
+        scale: 1;
+    }
+}
+
+@keyframes sparkle {
+    0% {
+        scale: 1 1;
+    }
+    33% {
+        scale: 1.1 .7;
+    }
+    66% {
+        scale: .7 1.1;
+    }
+    100% {
+        scale: 1 1;
+    }
+}
+
+@keyframes wobble {
+    0% {
+        transform: rotate(0deg);
+    }
+    25% {
+        transform: rotate(2deg);
+    }
+    50% {
+        transform: rotate(-2deg);
+    }
+    75% {
+        transform: rotate(2deg);
+    }
+    100% {
+        transform: rotate(0deg);
+    }
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.5);
+    }
+    100% {
+        transform: scale(1);
     }
 }
